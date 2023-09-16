@@ -113,7 +113,7 @@ func search_request(query string, token RaindropToken, collection int, tag strin
 	// Query Raindrop.io
 	var result map[string]interface{}
 	var err error
-	client := &http.Client{}
+	client := get_cached_http_client()
 	request, err := http.NewRequest("GET", "https://api.raindrop.io/rest/v1/raindrops/"+fmt.Sprint(collection)+"/?search=["+tag+"{\"key\":\"word\",\"val\":\""+url.QueryEscape(query)+"\"}]&sort=\""+sorting+"\"", nil)
 	if err != nil {
 		var nothing []interface{}
@@ -261,7 +261,7 @@ func get_collections(token RaindropToken, sublevel bool, caching string) []inter
 	if sublevel {
 		request_url = "https://api.raindrop.io/rest/v1/collections/childrens"
 	}
-	client := &http.Client{}
+	client := get_cached_http_client()
 	request, err := http.NewRequest("GET", request_url, nil)
 	if err != nil {
 		return collections
@@ -491,7 +491,7 @@ func get_tags(token RaindropToken, caching string) []interface{} {
 	// Query Raindrop.io
 	request_url := "https://api.raindrop.io/rest/v1/tags/0"
 
-	client := &http.Client{}
+	client := get_cached_http_client()
 	request, err := http.NewRequest("GET", request_url, nil)
 	if err != nil {
 		return tags
@@ -539,7 +539,7 @@ func check_token_lifetime(token RaindropToken) {
 
 // Function for getting HTML meta description from a given URL
 func get_meta_description(url_string string) string {
-	client := &http.Client{}
+	client := get_cached_http_client()
 	request, err := http.NewRequest("GET", url_string, nil)
 	if err != nil {
 		return ""
@@ -578,7 +578,7 @@ func get_meta_description(url_string string) string {
 
 // Function for getting HTML title from a given URL
 func get_title(url_string string) string {
-	client := &http.Client{}
+	client := get_cached_http_client()
 	request, err := http.NewRequest("GET", url_string, nil)
 	if err != nil {
 		return ""

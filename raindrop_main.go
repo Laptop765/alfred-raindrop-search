@@ -5,12 +5,15 @@ import (
 	"os"
 
 	aw "github.com/deanishe/awgo"
+	"github.com/gregjones/httpcache/diskcache"
 )
 
 var wf *aw.Workflow
+var httpDiskCache *diskcache.Cache
 
 func init() {
 	wf = aw.New()
+	httpDiskCache = init_cache(wf.CacheDir() + "/httpcache")
 }
 
 func run() {

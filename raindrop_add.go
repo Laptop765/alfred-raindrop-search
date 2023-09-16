@@ -254,7 +254,7 @@ func save_bookmark(tags string) {
 	request.Header.Set("Content-Type", "application/json")
 	request.Header.Set("Authorization", "Bearer "+token.AccessToken)
 
-	client := &http.Client{}
+	client := get_cached_http_client()
 	response, err := client.Do(request)
 	if err != nil {
 		panic(err)
